@@ -24,6 +24,7 @@ Run `make build` to build the docker image. Then run `make jupyter` to start a d
 * `--responses`: number of output responses (default: 8)
 * `--batch_size`: batch size (default: 128)
 * `--epochs`: number of training epochs (default: 10)
+* `--classify`: flag to switch between regression and classification
 
 To run with pytorch: `python main.py --framework pytorch`.
 
