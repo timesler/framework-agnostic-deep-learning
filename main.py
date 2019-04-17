@@ -5,20 +5,23 @@ from models.mlp import Regressor
 from models.training import train
 from models.optimizers import adam
 from losses.continuous import mse
+from losses.discrete import cross_entropy_logits
 
 
 if __name__ == "__main__":
     
     # Default parameters
+    classify = True
     samples = 10000
     features = 128
     responses = 8
     batch_size = 128
     epochs = 10
-    framework = 'tensorflow'
+    framework = 'pytorch'
 
     # Parse command line args
     parser = argparse.ArgumentParser()
+    parser.add_argument('--classify', action='store_true', default=False)
     parser.add_argument('--samples', type=int, default=samples, required=False)
     parser.add_argument('--features', type=int, default=features, required=False)
     parser.add_argument('--responses', type=int, default=responses, required=False)
@@ -31,13 +34,15 @@ if __name__ == "__main__":
     # Generate some random data
     x = np.random.rand(samples, features).astype(np.float32)
     y = np.random.rand(samples, responses).astype(np.float32)
+    if classify:
+        y = np.argmax(y, axis=1).astype(np.int64)
 
     # Create a data loader
     loader = create_loader(x, y, batch_size, framework)
 
     # Create a model and optimizer
-    regressor = Regressor(x.shape[1], y.shape[1], framework)
-    optimizer = adam(regressor, learning_rate=0.01)
+    model = Regressor(features, responses, framework)
+    optimizer = adam(model, learning_rate=0.01)
 
     # Train model
-    losses = train(regressor, optimizer, mse, loader, epochs)
+    losses = train(model, optimizer, cross_entropy_logits if classify else mse, loader, epochs)

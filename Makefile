@@ -1,4 +1,4 @@
-.PHONY: build jupyter api bash
+.PHONY: build jupyter api bash run
 
 build:
 	docker-compose build
@@ -12,3 +12,6 @@ api:
 
 bash:
 	docker-compose run --rm analytics bash
+
+run:
+	docker-compose run --rm analytics python main.py
