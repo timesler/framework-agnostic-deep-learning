@@ -104,18 +104,18 @@ def Regressor(input_dim: int, output_dim: int, mod: str='pytorch'):
         raise Exception('Parameter "mod" should be one of "pytorch" or "tensorflow".')
 
 
-class Regressor_tf(tf.keras.Model):
-    """This is a MLP regressor class for tensorflow."""
+class Classifier_tf(tf.keras.Model):
+    """This is a MLP classifier class for tensorflow."""
 
     def __init__(self, input_dim: int, output_dim: int):
-        """Constructor for Regressor_tf class.
+        """Constructor for Classifier_tf class.
         
         Args:
             input_dim (int): Input dimension (number of features).
             output_dim (int): Output dimension (number of responses).
         """
 
-        super(Regressor_tf, self).__init__()
+        super(Classifier_tf, self).__init__()
 
         self.input_dim = input_dim
         self.output_dim = output_dim
@@ -127,6 +127,7 @@ class Regressor_tf(tf.keras.Model):
         self.dense2 = layers.Dense(32, kernel_initializer=initializer)
         self.relu2 = layers.Activation('relu')
         self.dense3 = layers.Dense(output_dim, kernel_initializer=initializer)
+        self.softmax1 = layers.Activation('softmax')
     
     def call(self, x, training=True):
 
@@ -136,6 +137,7 @@ class Regressor_tf(tf.keras.Model):
         x = self.dense2(x)
         x = self.relu2(x)
         x = self.dense3(x)
+        x = self.softmax1(x)
 
         return x
 
@@ -144,14 +146,14 @@ class Classifier_pt(nn.Module):
     """This is a MLP classifier class for pytorch."""
 
     def __init__(self, input_dim: int, output_dim: int):
-        """Constructor for Regressor_pt class.
+        """Constructor for Classifier_pt class.
         
         Args:
             input_dim (int): Input dimension (number of features).
             output_dim (int): Output dimension (number of responses).
         """
 
-        super(Regressor_pt, self).__init__()
+        super(Classifier_pt, self).__init__()
 
         self.input_dim = input_dim
         self.output_dim = output_dim
@@ -162,6 +164,7 @@ class Classifier_pt(nn.Module):
         self.dense2 = nn.Linear(64, 32)
         self.relu2 = nn.ReLU()
         self.dense3 = nn.Linear(32, output_dim)
+        self.softmax1 = nn.Softmax()
     
     def forward(self, x, training=True):
 
@@ -176,6 +179,7 @@ class Classifier_pt(nn.Module):
         x = self.dense2(x)
         x = self.relu2(x)
         x = self.dense3(x)
+        x = self.softmax1(x)
 
         return x
 
