@@ -1,4 +1,4 @@
-# Hybrid Pytorch/Tensorflow Project
+# Framework-agnostic deep learning
 
 This repo contains examples of using common code with both the Pytorch and Tensorflow ML/neural network frameworks.
 
