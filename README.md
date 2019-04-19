@@ -25,7 +25,16 @@ Run `make build` to build the docker image. Then run `make jupyter` to start a d
 * `--batch_size`: batch size (default: 128)
 * `--epochs`: number of training epochs (default: 10)
 * `--classify`: flag to switch between regression and classification
+* `--architecture`: pg for policy gradient RL model, mlp for simple multi-layer perceptron (default: pg)
 
-To run with pytorch: `python main.py --framework pytorch`.
+*Examples*:
 
-To run with tensorflow: `python main.py --framework tensorflow`.
+To run RL classification model with pytorch:
+
+```python main.py --framework pytorch --architecture pg --classify```.
+
+To run MLP regression model with tensorflow:
+
+```python main.py --framework tensorflow --architecture mlp```.
+
+Any combination of the above parameters should work also, and all are optional.
