@@ -19,7 +19,7 @@ class Regressor_tf(tf.keras.Model):
             output_dim (int): Output dimension (number of responses).
         """
 
-        super(Regressor_tf, self).__init__()
+        super().__init__()
 
         self.input_dim = input_dim
         self.output_dim = output_dim
@@ -55,7 +55,7 @@ class Regressor_pt(nn.Module):
             output_dim (int): Output dimension (number of responses).
         """
 
-        super(Regressor_pt, self).__init__()
+        super().__init__()
 
         self.input_dim = input_dim
         self.output_dim = output_dim
